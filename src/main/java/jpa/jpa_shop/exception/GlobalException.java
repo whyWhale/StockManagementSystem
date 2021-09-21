@@ -17,13 +17,7 @@ public class GlobalException {
         return new ResponseEntity<>(errorResponse,HttpStatus.EXPECTATION_FAILED);
     }
 
-    @ExceptionHandler(value = NotSearchId.class)
-    public ResponseEntity<ErrorResponse> notSearchIdException(RuntimeException exception)
-    {
-        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.NO_CONTENT, exception.getMessage());
-        return new ResponseEntity<>(errorResponse,HttpStatus.NO_CONTENT);
-    }
-
+    // presentationLayer validation Error
     @ExceptionHandler(value= MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> ValidationError(MethodArgumentNotValidException exception)
     {
@@ -33,7 +27,7 @@ public class GlobalException {
     }
 
     @ExceptionHandler(value = IllegalStateException.class)
-    public ResponseEntity<ErrorResponse> illegalstateException(IllegalStateException exception)
+    public ResponseEntity<ErrorResponse> illegalStateException(IllegalStateException exception)
     {
         String message = exception.getMessage();
         ErrorResponse errorResponse=ErrorResponse.of(HttpStatus.CONFLICT,message);
@@ -47,6 +41,4 @@ public class GlobalException {
         ErrorResponse errorResponse=ErrorResponse.of(HttpStatus.NO_CONTENT,message);
         return new ResponseEntity<>(errorResponse,HttpStatus.NO_CONTENT);
     }
-
-
 }
