@@ -1,10 +1,10 @@
 package jpa.jpa_shop.service.UnitTest;
 
-import jpa.jpa_shop.domain.member.Address;
 import jpa.jpa_shop.domain.member.Member;
 import jpa.jpa_shop.domain.member.Repository.MemberRepository;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.MemberService;
+import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberUpdateRequestDto;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.extern.slf4j.Slf4j;
@@ -37,100 +37,102 @@ public class unitMemberServiceTest {
     @Mock
     private MemberRepository memberRepository;
 
-    private Member member;
+    private MemberSaveRequestDto dto1;
 
-    private Member member2;
+    private MemberSaveRequestDto dto2;
 
 
     @Before
     public void memberData() {
-        member = Member.builder().
-                name("KIM").
-                address(Address.builder().city("Seoul").street("soso street").zipcode("59-1").build())
+        dto1 = MemberSaveRequestDto.builder()
+                .name("KIM")
+                .city("Seoul").street("soso street").zipcode("59-1")
                 .build();
-        ReflectionTestUtils.setField(member,"id",1L);
+        ReflectionTestUtils.setField(dto1.toEntity(), "id", 1L);
 
-        member2 = Member.builder().
-                name("PARK").
-                address(Address.builder().city("Incheon").street("gugu street").zipcode("12-1").build())
+        dto2 = MemberSaveRequestDto.builder()
+                .name("PARK")
+                .city("Incheon").street("gugu street").zipcode("12-1")
                 .build();
-        ReflectionTestUtils.setField(member2,"id",2L);
+        ReflectionTestUtils.setField(dto2.toEntity(), "id", 2L);
 
         log.info("before Test");
     }
 
     @Test
-   public void MemberServiceJoin() {
-       // given
-       given(memberRepository.findById(1L)).willReturn(Optional.of(member));
+    public void MemberServiceJoin() {
+        // given
+        given(memberRepository.findById(1L)).willReturn(Optional.of(dto1.toEntity()));
 
-       // when
-       memberService.Join(member);
-       Member findMember = memberRepository.findById(1L).orElseThrow(NoEntity::new);
+        // when
+        memberService.Join(dto1);
+        Member findMember = memberRepository.findById(1L).orElseThrow(NoEntity::new);
 
-       // then
-        assertThat(findMember.getName()).isEqualTo(member.getName());
-        assertThat(findMember.getAddress().getCity()).isEqualTo(member.getAddress().getCity());
-        assertThat(findMember.getAddress().getStreet()).isEqualTo(member.getAddress().getStreet());
-        assertThat(findMember.getAddress().getZipcode()).isEqualTo(member.getAddress().getZipcode());
+        // then
+        assertThat(findMember.getName()).isEqualTo(dto1.getName());
+        assertThat(findMember.getAddress().getCity()).isEqualTo(dto1.getCity());
+        assertThat(findMember.getAddress().getStreet()).isEqualTo(dto1.getStreet());
+        assertThat(findMember.getAddress().getZipcode()).isEqualTo(dto1.getZipcode());
 
-   }
+    }
 
-   @Test
-   public void MemberServiceUpdate() {
-       // given
-       String name = "Park";
-       String city = "Seoul";
-       String street = "soso street";
-       String zipcode = "65-1";
-       MemberUpdateRequestDto Dto = MemberUpdateRequestDto.builder().name(name).
-               city(city).street(street).zipcode(zipcode).build();
+    @Test
+    public void MemberServiceUpdate() {
+        // given
+        String name = "Park";
+        String city = "Seoul";
+        String street = "soso street";
+        String zipcode = "65-1";
+        MemberUpdateRequestDto Dto = MemberUpdateRequestDto.builder().name(name).
+                city(city).street(street).zipcode(zipcode).build();
 
-       given(memberRepository.findById(member2.getId())).willReturn(Optional.of(member2));
+        given(memberRepository.findById(2L)).willReturn(Optional.of(dto2.toEntity()));
 
-       // when
+        // when
 
-       memberService.update(member2.getId(), Dto);
-       Member findMember = memberRepository.findById(2L).orElseThrow(NoEntity::new);
+        memberService.update(2L, Dto);
+        Optional<Member> optionalMember = memberRepository.findById(2L);
+        final Member findMember = optionalMember.get();
+        // then
+        assertThat(findMember.getAddress().getCity()).isEqualTo(city);
+        assertThat(findMember.getAddress().getStreet()).isEqualTo(street);
+        assertThat(findMember.getAddress().getZipcode()).isEqualTo(zipcode);
+        assertThat(findMember.getName()).isEqualTo(name);
+    }
 
-       // then
-       assertThat(findMember.getAddress().getCity()).isEqualTo(city);
-       assertThat(findMember.getAddress().getStreet()).isEqualTo(street);
-       assertThat(findMember.getAddress().getZipcode()).isEqualTo(zipcode);
-       assertThat(findMember.getName()).isEqualTo(name);
-   }
-   
-   @Test
-   public void MemberServiceFindAll() {
-       // given
-       List<Member> list = getMembers();
-       given(memberRepository.findAll()).willReturn(list);
-       // when
-       List<MemberResponseDto> memberResponseDtos = memberService.findAll();
-       // then
-       MemberResponseDto memberResponseDto1 = memberResponseDtos.get(0);
-       MemberResponseDto memberResponseDto2 = memberResponseDtos.get(1);
-       assertThat(memberResponseDto1.getName()).isEqualTo(member.getName());
-       assertThat(memberResponseDto1.getStreet()).isEqualTo(member.getAddress().getStreet());
-       assertThat(memberResponseDto2.getStreet()).isEqualTo(member2.getAddress().getStreet());
-       assertThat(memberResponseDto2.getStreet()).isEqualTo(member2.getAddress().getStreet());
-   }
+    @Test
+    public void MemberServiceFindAll() {
+        // given
+        List<Member> list = getMembers();
+        given(memberRepository.findAll()).willReturn(list);
+        // when
+        List<MemberResponseDto> memberResponseDtos = memberService.findAll();
+        // then
+        MemberResponseDto memberResponseDto1 = memberResponseDtos.get(0);
+        MemberResponseDto memberResponseDto2 = memberResponseDtos.get(1);
+        assertThat(memberResponseDto1.getName()).isEqualTo(dto1.getName());
+        assertThat(memberResponseDto1.getStreet()).isEqualTo(dto1.getStreet());
+        assertThat(memberResponseDto2.getStreet()).isEqualTo(dto2.getStreet());
+        assertThat(memberResponseDto2.getStreet()).isEqualTo(dto2.getStreet());
+    }
 
-   @Test
-   public void MemberServiceDelete() {
-       // given
+    @Test
+    public void MemberServiceDelete() {
+        // given
 
-       // when
-        given(memberRepository.findById(1L)).willReturn(Optional.of(member));
+        // when
+        given(memberRepository.findById(1L)).willReturn(Optional.of(dto1.toEntity()));
         doNothing().when(memberRepository).delete(any(Member.class));
-       // then
-       memberService.delete(member.getId());
-   }
+        // then
+        final Optional<Member> byId = memberRepository.findById(1L);
+        log.info("findById Member : {}",byId);
+        memberService.delete(1L);
+    }
 
     private List<Member> getMembers() {
-        List<Member> list=new LinkedList<>();
-        list.add(member);
-        list.add(member2);
+        List<Member> list = new LinkedList<>();
+        list.add(dto1.toEntity());
+        list.add(dto2.toEntity());
         return list;
     }
 }

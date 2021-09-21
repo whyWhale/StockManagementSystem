@@ -29,13 +29,17 @@ public class Member extends BaseEntity {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Embedded
     private Address address;
 
     @Builder
-    public Member(String username, String password, String name, Address address) {
+    public Member(String username, String password, String name, Address address,Role role) {
         this.username = username;
         this.password = password;
+        this.role=role;
         this.name = name;
         this.address=address;
     }
@@ -53,6 +57,7 @@ public class Member extends BaseEntity {
     {
         return MemberResponseDto.builder()
                 .id(getId())
+                .username(getUsername())
                 .name(getName())
                 .city(getAddress().getCity())
                 .street(getAddress().getStreet())

@@ -8,7 +8,6 @@ import jpa.jpa_shop.domain.item.Repository.BookRepository;
 import jpa.jpa_shop.domain.item.Repository.ItemRepository;
 import jpa.jpa_shop.domain.item.Repository.MovieRepository;
 import jpa.jpa_shop.exception.NoEntity;
-import jpa.jpa_shop.exception.NotSearchId;
 import jpa.jpa_shop.service.IFS.ItemServiceIFS;
 import jpa.jpa_shop.web.dto.request.PageRequestDTO;
 import jpa.jpa_shop.web.dto.request.PageResultDTO;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -92,13 +90,13 @@ public class ItemService implements ItemServiceIFS {
 
     @Override
     public Item findById(Long itemId) {
-        return itemRepository.findById(itemId).orElseThrow(NotSearchId::new);
+        return itemRepository.findById(itemId).orElseThrow(NoEntity::new);
     }
 
     @Transactional
     @Override
     public Long updateItem(Item item) {
-        Item requestItem = itemRepository.findById(item.getId()).orElseThrow(NotSearchId::new);
+        Item requestItem = itemRepository.findById(item.getId()).orElseThrow(NoEntity::new);
         switch (requestItem.getClass().getSimpleName().toLowerCase())
         {
             case "movie":

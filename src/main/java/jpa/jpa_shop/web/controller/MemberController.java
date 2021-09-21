@@ -19,23 +19,10 @@ public class MemberController {
     @GetMapping("/signUp")
     public String signUpForm(Model model)
     {
-        model.addAttribute("memberSaveRequestDto",new MemberSaveRequestDto());
+        model.addAttribute("memberSaveRequestDto",MemberSaveRequestDto.builder());
         return "member/signUpForm";
     }
-    // RestController 대체.
-   /* @PostMapping("")
-    public String save(@Valid MemberSaveRequestDto requestDto , BindingResult result)
-    {
-        if(result.hasErrors())
-        {
-            log.warn("{}","name Required");
-            return "member/signUpForm";
-        }
-        log.info("{}","CREAT MEMBER"+requestDto.toString());
-        memberService.Join(requestDto.toEntity());
 
-        return "redirect:/";
-    }*/
     @GetMapping("/list")
     public String list(Model model)
     {

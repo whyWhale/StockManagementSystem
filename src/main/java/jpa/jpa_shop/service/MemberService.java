@@ -2,11 +2,17 @@ package jpa.jpa_shop.service;
 
 import jpa.jpa_shop.domain.member.Member;
 import jpa.jpa_shop.domain.member.Repository.MemberRepository;
+import jpa.jpa_shop.domain.member.SecurityMember;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.IFS.MemberServiceIFS;
+import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberUpdateRequestDto;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +22,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class MemberService implements MemberServiceIFS {
+public class MemberService implements MemberServiceIFS, UserDetailsService {
     private final MemberRepository memberRepository;
-
+    private final PasswordEncoder passwordEncoder;
     @Override
     @Transactional
-    public void Join(Member member) {
+    public void Join(MemberSaveRequestDto requestDto) {
+        final Member member = requestDto.toEntity();
         if(validDuplicateMember(member)){
             throw new IllegalArgumentException("Duplicated username");
         }
@@ -61,5 +68,11 @@ public class MemberService implements MemberServiceIFS {
     public void delete(Long id) {
         Member deleteMember = memberRepository.findById(id).orElseThrow(NoEntity::new);
         memberRepository.delete(deleteMember);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        final Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
+        return new SecurityMember(member);
     }
 }
