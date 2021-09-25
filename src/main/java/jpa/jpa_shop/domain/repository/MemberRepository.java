@@ -1,4 +1,4 @@
-package jpa.jpa_shop.domain.member.Repository;
+package jpa.jpa_shop.domain.repository;
 
 import jpa.jpa_shop.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

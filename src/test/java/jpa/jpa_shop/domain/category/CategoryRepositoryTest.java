@@ -1,6 +1,6 @@
 package jpa.jpa_shop.domain.category;
 
-import org.assertj.core.api.Assertions;
+import jpa.jpa_shop.domain.repository.CategoryRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

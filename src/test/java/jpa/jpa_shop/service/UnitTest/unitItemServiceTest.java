@@ -5,7 +5,7 @@ import jpa.jpa_shop.domain.item.Album;
 import jpa.jpa_shop.domain.item.Book;
 import jpa.jpa_shop.domain.item.Item;
 import jpa.jpa_shop.domain.item.Movie;
-import jpa.jpa_shop.domain.item.Repository.ItemRepository;
+import jpa.jpa_shop.domain.repository.ItemRepository;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.ItemService;
 import jpa.jpa_shop.web.dto.response.item.AlbumUpdateResponseDto;
@@ -20,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package jpa.jpa_shop.domain.orders.Repository;
+package jpa.jpa_shop.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -6,7 +6,7 @@ import jpa.jpa_shop.domain.member.Address;
 import jpa.jpa_shop.domain.member.Member;
 import jpa.jpa_shop.domain.orders.Order;
 import jpa.jpa_shop.domain.orders.OrderStatus;
-import jpa.jpa_shop.domain.orders.Repository.OrderRepository;
+import jpa.jpa_shop.domain.repository.OrderRepository;
 import jpa.jpa_shop.web.dto.request.order.OrderSearchRequestDto;
 import jpa.jpa_shop.exception.NotEnoughStockException;
 import jpa.jpa_shop.service.IFS.OrderServiceIFS;

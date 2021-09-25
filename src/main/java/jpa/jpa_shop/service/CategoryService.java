@@ -1,7 +1,7 @@
 package jpa.jpa_shop.service;
 
 import jpa.jpa_shop.domain.category.Category;
-import jpa.jpa_shop.domain.category.CategoryRepository;
+import jpa.jpa_shop.domain.repository.CategoryRepository;
 import jpa.jpa_shop.web.dto.response.category.CategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

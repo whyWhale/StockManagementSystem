@@ -1,7 +1,7 @@
 package jpa.jpa_shop.service.UnitTest;
 
 import jpa.jpa_shop.domain.member.Member;
-import jpa.jpa_shop.domain.member.Repository.MemberRepository;
+import jpa.jpa_shop.domain.repository.MemberRepository;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.MemberService;
 import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;

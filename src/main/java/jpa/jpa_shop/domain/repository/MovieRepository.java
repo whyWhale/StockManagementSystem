@@ -1,4 +1,4 @@
-package jpa.jpa_shop.domain.item.Repository;
+package jpa.jpa_shop.domain.repository;
 
 import jpa.jpa_shop.domain.item.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
