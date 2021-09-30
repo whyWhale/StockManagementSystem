@@ -2,6 +2,7 @@ package jpa.jpa_shop.web.dto.request.member;
 
 import jpa.jpa_shop.domain.member.Address;
 import jpa.jpa_shop.domain.member.Member;
+import jpa.jpa_shop.domain.member.Role;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +55,7 @@ public class MemberSaveRequestDto {
                 .password(this.password)
                 .name(this.name)
                 .address(getAddress())
+                .role(Role.ADMIN)
                 .build();
     }
 

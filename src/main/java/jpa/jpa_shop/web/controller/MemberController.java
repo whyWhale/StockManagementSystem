@@ -19,8 +19,14 @@ public class MemberController {
     @GetMapping("/signUp")
     public String signUpForm(Model model)
     {
-        model.addAttribute("memberSaveRequestDto",MemberSaveRequestDto.builder());
+        model.addAttribute("memberSaveRequestDto",new MemberSaveRequestDto());
         return "member/signUpForm";
+    }
+
+    @GetMapping("/login")
+    public String loginForm()
+    {
+        return "member/loginForm";
     }
 
     @GetMapping("/list")

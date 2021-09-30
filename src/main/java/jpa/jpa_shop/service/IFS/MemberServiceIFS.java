@@ -3,10 +3,11 @@ package jpa.jpa_shop.service.IFS;
 import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberUpdateRequestDto;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface MemberServiceIFS {
+public interface MemberServiceIFS extends UserDetailsService {
 
     public void Join(MemberSaveRequestDto member);
 

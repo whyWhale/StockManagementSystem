@@ -1,28 +1,39 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-secuirty">
 <head th:replace="layout/header :: header">
     <title>STOCK MANAGEMENT SYSTEM</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+
 <div class="container">
     <div th:replace="layout/navbar :: bodyHeader"/>
     <div class="jumbotron">
         <h1>Stock Management System</h1>
-        <p class="lead">회원 기능</p>
-        <p>
-            <a class="btn btn-lg btn-secondary" href="/member/signUp">회원 가입</a>
-            <a class="btn btn-lg btn-secondary" href="/member/list">가맹점 목록</a>
-        </p>
-        <p class="lead">상품 기능</p>
-        <p>
-            <a class="btn btn-lg btn-dark" href="/item">상품 등록</a>
-            <a class="btn btn-lg btn-dark" href="/item/list">상품 목록</a>
-        </p>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <p class="lead">회원 기능</p>
+            <p>
+                <a class="btn btn-lg btn-secondary" href="/member/list">가맹점 목록</a>
+                <a class="btn btn-lg btn-secondary" href="/order/list">총 주문 내역</a>
+            </p>
+        </div>
+        <div sec:authorize="hasRole('ROLE_MEMBER')">
+            <p class="lead">회원 기능</p>
+            <p>
+                <a class="btn btn-lg btn-secondary" href="/member/list">인근 가맹점 목록</a>
+            </p>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <p class="lead">상품 기능</p>
+            <p>
+                <a class="btn btn-lg btn-dark" href="/item">상품 등록</a>
+                <a class="btn btn-lg btn-dark" href="/item/list">상품 목록</a>
+            </p>
+        </div>
         <p class="lead">주문 기능</p>
         <p>
             <a class="btn btn-lg btn-info" href="/order">상품 주문</a>
-            <a class="btn btn-lg btn-info" href="/order/list">주문 내역</a>
+            <a class="btn btn-lg btn-info" href="/order/list">나의 주문 내역</a>
         </p>
     </div>
     <div th:replace="layout/footer :: footer"/>

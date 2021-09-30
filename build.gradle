@@ -30,6 +30,8 @@ dependencies {
 
     // jpa + db
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.session:spring-session-data-redis'
     implementation 'com.querydsl:querydsl-jpa'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -51,7 +53,7 @@ dependencies {
     //swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
     //lombok
     annotationProcessor 'org.projectlombok:lombok'
 }
@@ -63,7 +65,8 @@ bootRun {
 
 test {
 }
-def querydslSrcDir = "$buildDir/generated/querydsl"
+//def querydslSrcDir = "$buildDir/generated/querydsl"
+def querydslSrcDir = "src/main/generated/querydsl"
 
 querydsl {
     library ="com.querydsl:querydsl-apt"

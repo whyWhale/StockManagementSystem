@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: header"/>
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+<div th:class="container">
+    <div th:replace="layout/navbar :: bodyHeader"/>
+    <form method="post" th:action="@{/loginAction}">
+        <table>
+            <tr>
+                <td>ID :</td>
+                <td><input type="text" name="username" placeholder="ID"></td>
+            </tr>
+            <tr>
+                <td>PASSWORD :</td>
+                <td><input type="password" name="password" placeholder="PASSWORD"></td>
+            </tr>
+            <tr>
+                <td colspan="1"><a class="btn btn-lg btn-secondary" href="/member/signUp">회원 가입</a></td>
+                <td colspan="1"><input type="Submit" class="btn btn-lg btn-primary" value="login"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</div>
+</body>
+</html>

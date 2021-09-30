@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-secuirty">
 <div class="header" th:fragment="bodyHeader">
-  <ul class="nav nav-pills pull-right">
-    <li><a href="/">WhyWhale</a></li>
-  </ul>
-  <a href="/"><h3 class="text-muted">stock management system</h3></a>
+    <ul class="nav nav-pills pull-right">
+        <li><a href="/">WhyWhale</a></li>
+    </ul>
+    <a href="/"><h3 class="text-muted">stock management system</h3></a>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">grade : ADMIN</div>
+    <div sec:authorize="hasRole('ROLE_MEMBER')">grade : MEMBER</div>
+    <div sec:authorize="isAuthenticated()"><a style="float: right" th:href="@{/logout}" class="btn btn-lg btn-danger">logout</a></div>
 </div>

@@ -29,7 +29,7 @@ public class OrderController {
     {
         List<MemberResponseDto> memberList=memberService.findAll();
         List<Item> itemList=itemService.findItemsToOrder();
-
+        log.info("members -> {}",memberList);
         model.addAttribute("members",memberList);
         model.addAttribute("items",itemList);
         return "order/orderForm";

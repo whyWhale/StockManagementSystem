@@ -7,17 +7,20 @@ import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 @DynamicUpdate
+@ToString(exclude = {"orders","password","role"})
 @Entity
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "member_id")
@@ -63,6 +66,10 @@ public class Member extends BaseEntity {
                 .street(getAddress().getStreet())
                 .zipcode(getAddress().getZipcode())
                 .build();
+    }
+
+    public String getRoleKey(){
+        return this.role.getKey();
     }
 
 }

@@ -1,7 +1,7 @@
 package jpa.jpa_shop.service;
 
 import jpa.jpa_shop.domain.member.Member;
-import jpa.jpa_shop.domain.member.Repository.MemberRepository;
+import jpa.jpa_shop.domain.repository.MemberRepository;
 import jpa.jpa_shop.domain.member.SecurityMember;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.IFS.MemberServiceIFS;
@@ -9,8 +9,8 @@ import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberUpdateRequestDto;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,15 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class MemberService implements MemberServiceIFS, UserDetailsService {
+public class MemberService implements MemberServiceIFS {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     @Override
     @Transactional
     public void Join(MemberSaveRequestDto requestDto) {
+        requestDto.encodePassword(passwordEncoder);
         final Member member = requestDto.toEntity();
         if(validDuplicateMember(member)){
             throw new IllegalArgumentException("Duplicated username");
@@ -73,6 +75,9 @@ public class MemberService implements MemberServiceIFS, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
-        return new SecurityMember(member);
+        log.info("member 조회 : {}",member.toString());
+        SecurityMember securityMember = new SecurityMember(member);
+        log.info("security member : {}",securityMember);
+        return securityMember;
     }
 }

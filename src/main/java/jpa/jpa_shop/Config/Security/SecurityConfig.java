@@ -1,6 +1,5 @@
-package jpa.jpa_shop.Config;
+package jpa.jpa_shop.Config.Security;
 
-import jpa.jpa_shop.domain.member.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,14 +24,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/member/signUp","/h2-console/**").permitAll()
+                .antMatchers("/","/member/login","/member/signUp","/h2-console/**","/js/**","/css/**","/test","/testall").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/member").permitAll()
-                .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
-                .antMatchers("/Manager/**").hasRole(Role.MANAGER.name())
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/Manager/**").hasRole("MANAGER")
                 .anyRequest().authenticated()
                 .and()
+                .formLogin().loginPage("/member/login").defaultSuccessUrl("/")
+                .and()
+                .formLogin().loginProcessingUrl("/loginAction").defaultSuccessUrl("/")
+                .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/member/login");
     }
 
 
