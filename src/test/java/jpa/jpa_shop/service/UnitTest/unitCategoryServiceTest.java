@@ -1,10 +1,9 @@
 package jpa.jpa_shop.service.UnitTest;
 
 import jpa.jpa_shop.domain.category.Category;
-import jpa.jpa_shop.domain.category.CategoryRepository;
+import jpa.jpa_shop.domain.repository.CategoryRepository;
 import jpa.jpa_shop.service.CategoryService;
 import jpa.jpa_shop.web.dto.response.category.CategoryResponseDto;
-import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -21,7 +18,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
