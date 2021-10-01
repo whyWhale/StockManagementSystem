@@ -9,8 +9,8 @@ import jpa.jpa_shop.domain.repository.ItemRepository;
 import jpa.jpa_shop.domain.repository.MovieRepository;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.IFS.ItemServiceIFS;
-import jpa.jpa_shop.web.dto.request.PageRequestDTO;
-import jpa.jpa_shop.web.dto.request.PageResultDTO;
+import jpa.jpa_shop.web.dto.PageRequestDTO;
+import jpa.jpa_shop.web.dto.PageResponseDTO;
 import jpa.jpa_shop.web.dto.response.item.ItemListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,7 +46,7 @@ public class ItemService implements ItemServiceIFS {
     }
 
     @Override
-    public PageResultDTO<ItemListResponseDto, ? extends Item> findItems(PageRequestDTO requestDTO) {
+    public PageResponseDTO<ItemListResponseDto, ? extends Item> findItems(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("modifyLDT").descending());
 
 
@@ -59,23 +59,23 @@ public class ItemService implements ItemServiceIFS {
                     BooleanBuilder booleanBuilder1 = booleanBuilder.and(QBook.book.name.contains(name));
                     Page<Book> pageTypeBook = bookRepository.findAll(booleanBuilder1, pageable);
                     Function<Book, ItemListResponseDto> function1 = (book -> book.toResponseDTO(book.getClass().getSimpleName().toLowerCase()));
-                    return new PageResultDTO<ItemListResponseDto, Book>(pageTypeBook, function1);
+                    return new PageResponseDTO<ItemListResponseDto, Book>(pageTypeBook, function1);
                 case "MOVIE":
                     BooleanBuilder booleanBuilder2 = booleanBuilder.and(QMovie.movie.name.contains(name));
                     Page<Movie> pageTypeMovie = movieRepository.findAll(booleanBuilder2, pageable);
                     Function<Movie, ItemListResponseDto> function2 = (movie -> movie.toResponseDTO(movie.getClass().getSimpleName().toLowerCase()));
-                    return new PageResultDTO<ItemListResponseDto, Movie>(pageTypeMovie, function2);
+                    return new PageResponseDTO<ItemListResponseDto, Movie>(pageTypeMovie, function2);
                 case "ALBUM":
                     BooleanBuilder booleanBuilder3 = booleanBuilder.and(QAlbum.album.name.contains(name));
                     Page<Album> pageTypeAlbum = albumRepository.findAll(booleanBuilder3, pageable);
                     Function<Album, ItemListResponseDto> function3 = album -> album.toResponseDTO(album.getClass().getSimpleName().toLowerCase());
-                    return new PageResultDTO<ItemListResponseDto, Album> (pageTypeAlbum, function3);
+                    return new PageResponseDTO<ItemListResponseDto, Album>(pageTypeAlbum, function3);
             }
         }
         BooleanBuilder booleanBuilder = getSearch(requestDTO); //검색 조건 처리
         Page<Item> pageTypeItem = itemRepository.findAll(booleanBuilder, pageable); //Querydsl 사용
         Function<Item, ItemListResponseDto> fn = (item -> item.toResponseDTO(item.getClass().getSimpleName().toLowerCase()));
-        return new PageResultDTO<>(pageTypeItem, fn);
+        return new PageResponseDTO<>(pageTypeItem, fn);
     }
 
 

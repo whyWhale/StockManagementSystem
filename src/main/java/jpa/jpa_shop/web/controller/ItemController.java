@@ -4,7 +4,7 @@ import jpa.jpa_shop.domain.item.Album;
 import jpa.jpa_shop.domain.item.Book;
 import jpa.jpa_shop.domain.item.Movie;
 import jpa.jpa_shop.service.IFS.ItemServiceIFS;
-import jpa.jpa_shop.web.dto.request.PageRequestDTO;
+import jpa.jpa_shop.web.dto.PageRequestDTO;
 import jpa.jpa_shop.web.dto.request.item.AlbumSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.item.BookSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.item.MovieSaveRequestDto;

@@ -1,8 +1,8 @@
 package jpa.jpa_shop.service.IFS;
 
 import jpa.jpa_shop.domain.item.Item;
-import jpa.jpa_shop.web.dto.request.PageRequestDTO;
-import jpa.jpa_shop.web.dto.request.PageResultDTO;
+import jpa.jpa_shop.web.dto.PageRequestDTO;
+import jpa.jpa_shop.web.dto.PageResponseDTO;
 import jpa.jpa_shop.web.dto.response.item.ItemListResponseDto;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +15,7 @@ public interface ItemServiceIFS {
 
     public List<ItemListResponseDto> findItems();
 
-    public PageResultDTO<ItemListResponseDto, ? extends Item> findItems(PageRequestDTO requestDTO);
+    public PageResponseDTO<ItemListResponseDto, ? extends Item> findItems(PageRequestDTO requestDTO);
 
     public List<Item> findItemsToOrder();
 
