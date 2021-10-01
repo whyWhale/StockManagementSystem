@@ -13,8 +13,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Profile("dev")
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
 @Configuration
-@EnableRedisHttpSession
 public class RedisConfiguration {
     @Value("${spring.redis.host}")
     private String host;

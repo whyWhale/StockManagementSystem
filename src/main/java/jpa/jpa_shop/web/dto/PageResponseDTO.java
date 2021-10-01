@@ -1,4 +1,4 @@
-package jpa.jpa_shop.web.dto.request;
+package jpa.jpa_shop.web.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class PageResultDTO<DTO, ENTITY> {
+public class PageResponseDTO<DTO, ENTITY> {
 
     //DTO리스트
     private List<DTO> dtoList;
@@ -32,7 +32,7 @@ public class PageResultDTO<DTO, ENTITY> {
     //페이지 번호  목록
     private List<Integer> pageList;
 
-    public PageResultDTO(Page<ENTITY> result, Function<ENTITY,DTO> fn ){
+    public PageResponseDTO(Page<ENTITY> result, Function<ENTITY,DTO> fn ){
 
         dtoList = result.stream().map(fn).collect(Collectors.toList());
 
@@ -54,7 +54,7 @@ public class PageResultDTO<DTO, ENTITY> {
 
         prev = start > 1;
 
-        end = totalPage > tempEnd ? tempEnd: totalPage;
+        end = Math.min(totalPage, tempEnd);
 
         next = totalPage > tempEnd;
 

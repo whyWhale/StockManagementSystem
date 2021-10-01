@@ -4,6 +4,17 @@
 <body>
 <div class="container">
   <div th:replace="layout/navbar :: bodyHeader" />
+
+  <form action="/admin/members" method="get" id="searchForm">
+    <div class="input-group">
+      <input class="form-control" name="name" th:value="${MemberSearchCondition.name}" th:placeholder="회원명">
+      <input class="form-control" name="city" th:value="${MemberSearchCondition.city}" th:placeholder="도시명">
+      <div class="input-group-append" id="button-addon4">
+        <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+        <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+      </div>
+    </div>
+  </form>
   <div>
     <table class="table table-striped">
       <thead>
@@ -23,9 +34,56 @@
         <td th:text="${member.street}"></td>
         <td th:text="${member.zipcode}"></td>
       </tr>
-      </tbody> </table>
+      </tbody>
+    </table>
   </div>
+
+  <ul class="pagination h-100 justify-content-center align-items-center">
+
+    <li class="page-item " th:if="${result.prev}">
+      <a class="page-link"
+         th:href="@{/admin/members(page= ${result.start -1}
+                   ,size=${10},
+                   name=${MemberSearchCondition.name},
+                   city=${MemberSearchCondition.city}
+                   )}"
+         tabindex="-1">Previous</a>
+    </li>
+
+    <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+      <a class="page-link"
+         th:href="@{/admin/members(page = ${page},size=${10},
+                   name=${MemberSearchCondition.name},
+                   city=${MemberSearchCondition.city}
+                   )}">
+        [[${page}]]
+      </a>
+    </li>
+
+    <li class="page-item" th:if="${result.next}">
+      <a class="page-link" th:href="@{/admin/members(page= ${result.end + 1}
+                ,size=${10},
+                   name=${MemberSearchCondition.name},
+                   city=${MemberSearchCondition.city}
+                )}">
+        Next
+      </a>
+    </li>
+
+  </ul>
+
   <div th:replace="layout/footer :: footer" />
 </div> <!-- /container -->
+  <script th:inline="javascript">
+      var searchForm = $("#searchForm");
+
+      $('.btn-search').click(function(e){
+        searchForm.submit();
+      });
+
+      $('.btn-clear').click(function(e){
+        searchForm.empty().submit();
+      });
+  </script>
 </body>
 </html>

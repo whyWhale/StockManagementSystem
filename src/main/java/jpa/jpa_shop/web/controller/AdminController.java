@@ -4,7 +4,6 @@ import jpa.jpa_shop.domain.member.Member;
 import jpa.jpa_shop.service.IFS.MemberServiceIFS;
 import jpa.jpa_shop.web.dto.PageRequestDTO;
 import jpa.jpa_shop.web.dto.PageResponseDTO;
-import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberSearchConditionDto;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -15,33 +14,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequiredArgsConstructor
-@RequestMapping("/member")
 @Slf4j
+@RequestMapping("/admin")
+@RequiredArgsConstructor
 @Controller
-public class MemberController {
+public class AdminController {
+
     private final MemberServiceIFS memberService;
 
-    @GetMapping("/signUp")
-    public String signUpForm(Model model)
-    {
-        model.addAttribute("memberSaveRequestDto",new MemberSaveRequestDto());
-        return "member/signUpForm";
-    }
-
-    @GetMapping("/login")
-    public String loginForm()
-    {
-        return "member/loginForm";
-    }
-
-    @GetMapping("/list")
+    @GetMapping("/members")
     public String list(Model model
-            , @ModelAttribute("PageRequestDto")PageRequestDTO requestDTO
-            , @ModelAttribute("MemberSearchCondition")MemberSearchConditionDto searchConditionDto)
+            , @ModelAttribute("PageRequestDto") PageRequestDTO requestDTO
+            , @ModelAttribute("MemberSearchCondition") MemberSearchConditionDto searchConditionDto)
     {
-        log.info("PageRequestDTO : {}",requestDTO.toString());
-        log.info("MemberSearchCondition : {}",searchConditionDto.toString());
+        log.info("PageRequestDTO : {}",requestDTO);
+        log.info("MemberSearchCondition : {}",searchConditionDto);
         final PageResponseDTO<MemberResponseDto, Member> dto = memberService.pagingMembers(requestDTO, searchConditionDto);
         model.addAttribute("members",dto.getDtoList());
         model.addAttribute("result",dto);
