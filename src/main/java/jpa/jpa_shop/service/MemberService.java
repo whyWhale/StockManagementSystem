@@ -2,7 +2,7 @@ package jpa.jpa_shop.service;
 
 import jpa.jpa_shop.domain.member.Member;
 import jpa.jpa_shop.domain.repository.MemberRepository;
-import jpa.jpa_shop.domain.member.SecurityMember;
+import jpa.jpa_shop.Config.Security.SecurityMember;
 import jpa.jpa_shop.exception.NoEntity;
 import jpa.jpa_shop.service.IFS.MemberServiceIFS;
 import jpa.jpa_shop.web.dto.PageRequestDTO;
@@ -53,13 +53,8 @@ public class MemberService implements MemberServiceIFS {
     }
 
     // private 은 Tranactional 안걸림.
-    private boolean validDuplicateMember(Member member) {
+    public boolean validDuplicateMember(Member member) {
         return memberRepository.existsByName(member.getName());
-    }
-
-    @Override
-    public List<MemberResponseDto> findAll() {
-        return memberRepository.findAll().stream().map(Member::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -91,7 +86,7 @@ public class MemberService implements MemberServiceIFS {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
-        log.info("member 조회 : {}", member.toString());
+        log.info("member 조회 성공: {}", member.toString());
         SecurityMember securityMember = new SecurityMember(member);
         log.info("security member : {}", securityMember);
         return securityMember;

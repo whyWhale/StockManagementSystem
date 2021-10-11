@@ -1,5 +1,6 @@
-package jpa.jpa_shop.domain.member;
+package jpa.jpa_shop.Config.Security;
 
+import jpa.jpa_shop.domain.member.Member;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.security.core.authority.AuthorityUtils;

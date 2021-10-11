@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @DynamicUpdate
-@ToString(exclude = {"orders","password","role"})
+@ToString(exclude = {"password","role"})
 @Entity
 public class Member extends BaseEntity implements Serializable {
     @Id
@@ -46,9 +46,6 @@ public class Member extends BaseEntity implements Serializable {
         this.name = name;
         this.address=address;
     }
-
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders=new LinkedList<>();
 
     public Member update(MemberUpdateRequestDto requestDto) {
         this.address.update(requestDto.getCity(), requestDto.getStreet(), requestDto.getZipcode());

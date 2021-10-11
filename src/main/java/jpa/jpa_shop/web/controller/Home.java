@@ -1,6 +1,6 @@
 package jpa.jpa_shop.web.controller;
 
-import jpa.jpa_shop.domain.member.SecurityMember;
+import jpa.jpa_shop.Config.Security.SecurityMember;
 import jpa.jpa_shop.service.CategoryService;
 import jpa.jpa_shop.web.LogExecutionTime;
 import lombok.RequiredArgsConstructor;

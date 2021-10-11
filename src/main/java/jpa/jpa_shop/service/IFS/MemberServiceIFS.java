@@ -19,8 +19,6 @@ public interface MemberServiceIFS extends UserDetailsService {
 
     public void delete(Long id);
 
-    public List<MemberResponseDto> findAll();
-
     public PageResponseDTO<MemberResponseDto, Member> pagingMembers(PageRequestDTO requestDTO, MemberSearchConditionDto searchConditionDto);
 
     public MemberResponseDto findById(Long MemberId);

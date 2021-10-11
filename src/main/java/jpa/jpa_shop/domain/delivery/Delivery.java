@@ -17,13 +17,6 @@ public class Delivery {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
-    private Order order;
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
     @Embedded
     private Address address;
 
