@@ -65,6 +65,7 @@ public class MemberService implements MemberServiceIFS {
         return new PageResponseDTO<>(memberPages,function);
     }
 
+
     @Override
     public MemberResponseDto findById(Long MemberId) {
         return memberRepository.findById(MemberId).orElseThrow(NoEntity::new).toDto();
@@ -90,5 +91,9 @@ public class MemberService implements MemberServiceIFS {
         SecurityMember securityMember = new SecurityMember(member);
         log.info("security member : {}", securityMember);
         return securityMember;
+    }
+
+    public List<MemberResponseDto> findAll() {
+        return memberRepository.findAll().stream().map(Member::toDto).collect(Collectors.toList());
     }
 }

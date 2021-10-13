@@ -25,21 +25,23 @@ public class MemberSaveRequestDto {
     @NotBlank(message = "이름은 필수 입니다.")
     private String name;
 
-    @NotBlank(message = "도시는 필수 입니다.")
-    private String city;
+    @NotBlank(message = "우편 번호는 필수 입니다.")
+    private String zipcode;
 
     @NotBlank(message = "거리는 필수 입니다.")
     private String street;
 
-    @NotBlank(message = "지번은 필수 입니다.")
-    private String zipcode;
+    @NotBlank(message = "상세 주소는 필수 입니다.")
+    private String detail;
+
+
 
     @Builder
-    public MemberSaveRequestDto(String username, String password, String name, String city, String street, String zipcode) {
+    public MemberSaveRequestDto(String username, String password, String name, String detail, String street, String zipcode) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.city = city;
+        this.detail = detail;
         this.street = street;
         this.zipcode = zipcode;
     }
@@ -61,9 +63,9 @@ public class MemberSaveRequestDto {
 
     private Address getAddress() {
         return Address.builder()
-                .city(this.getCity())
-                .street(this.getStreet())
                 .zipcode(this.getZipcode())
+                .street(this.getStreet())
+                .detail(this.getDetail())
                 .build();
     }
 }

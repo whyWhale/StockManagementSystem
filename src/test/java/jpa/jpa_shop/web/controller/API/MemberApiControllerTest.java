@@ -47,7 +47,7 @@ public class MemberApiControllerTest {
                 .username("admin@naver.com")
                 .password("admin")
                 .name("admin")
-                .city("test")
+                .detail("test")
                 .street("test")
                 .zipcode("t1-2e-3s-4t")
                 .build();
@@ -55,7 +55,7 @@ public class MemberApiControllerTest {
 
         updateDto = MemberUpdateRequestDto.builder()
                 .name("testUpdate")
-                .city("testUpdate")
+                .detail("testUpdate")
                 .street("testUpdate")
                 .zipcode("testUpdate").build();
     }

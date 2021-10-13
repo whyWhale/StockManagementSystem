@@ -133,7 +133,7 @@ public class OrderServiceTest {
     {
         Member member = Member.builder().
                 name("PARK").
-                address(Address.builder().city("Seoul").street("soso street").zipcode("59-1").build())
+                address(Address.builder().detail("Seoul").street("soso street").zipcode("59-1").build())
                 .build();
         em.persist(member);
         return member;
@@ -157,19 +157,19 @@ public class OrderServiceTest {
         List<Member> list=new LinkedList<>();
         Member member = Member.builder().
                 name("PARK").
-                address(Address.builder().city("Seoul").street("soso street").zipcode("59-1").build())
+                address(Address.builder().detail("Seoul").street("soso street").zipcode("59-1").build())
                 .build();
         list.add(member);
         em.persist(member);
         Member member2 = Member.builder().
                 name("KIM").
-                address(Address.builder().city("NEYYORK").street("HELLO street").zipcode("59-1").build())
+                address(Address.builder().detail("NEYYORK").street("HELLO street").zipcode("59-1").build())
                 .build();
         em.persist(member2);
         list.add(member2);
         Member member3 = Member.builder().
                 name("LEE").
-                address(Address.builder().city("BUSAN").street("MAMA! street").zipcode("59-1").build())
+                address(Address.builder().detail("BUSAN").street("MAMA! street").zipcode("59-1").build())
                 .build();
         em.persist(member3);
         list.add(member3);

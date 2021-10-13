@@ -43,7 +43,7 @@ public class MemberServiceTest {
                 .username(username)
                 .password("password")
                 .name("KIM")
-                .city("Seoul").street("soso street").zipcode("59-1")
+                .detail("Seoul").street("soso street").zipcode("59-1")
                 .build();
         requestDto.encodePassword(passwordEncoder);
         //when
@@ -59,12 +59,12 @@ public class MemberServiceTest {
         MemberSaveRequestDto dto1 = MemberSaveRequestDto.builder()
                 .name("PARK")
                 .password("password")
-                .city("Seoul").street("soso street").zipcode("59-1")
+                .detail("Seoul").street("soso street").zipcode("59-1")
                 .build();
 
         MemberSaveRequestDto dto2 = MemberSaveRequestDto.builder()
                 .name("LEE")
-                .city("Seoul").street("gogo street").zipcode("11-1")
+                .detail("Seoul").street("gogo street").zipcode("11-1")
                 .build();
         memberService.Join(dto1);
         memberService.Join(dto2);
@@ -80,12 +80,12 @@ public class MemberServiceTest {
         //given
         MemberSaveRequestDto dto1 = MemberSaveRequestDto.builder()
                 .username("PARK")
-                .city("Seoul").street("soso street").zipcode("59-1")
+                .detail("Seoul").street("soso street").zipcode("59-1")
                 .build();
 
         MemberSaveRequestDto dto2 = MemberSaveRequestDto.builder()
                 .username("PARK")
-                .city("Seoul").street("gogo street").zipcode("11-1")
+                .detail("Seoul").street("gogo street").zipcode("11-1")
                 .build();
         //when
         memberService.Join(dto1);
@@ -101,7 +101,7 @@ public class MemberServiceTest {
             final MemberSaveRequestDto saveRequestDto = MemberSaveRequestDto.builder()
                     .name(Integer.valueOf(i).toString())
                     .password(Integer.valueOf(i).toString())
-                    .city(Integer.valueOf(i / 5).toString())
+                    .detail(Integer.valueOf(i / 5).toString())
                     .build();
 
             saveRequestDto.encodePassword(passwordEncoder);

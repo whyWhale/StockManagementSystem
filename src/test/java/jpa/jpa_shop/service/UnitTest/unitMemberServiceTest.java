@@ -46,13 +46,13 @@ public class unitMemberServiceTest {
     public void memberData() {
         dto1 = MemberSaveRequestDto.builder()
                 .name("KIM")
-                .city("Seoul").street("soso street").zipcode("59-1")
+                .detail("Seoul").street("soso street").zipcode("59-1")
                 .build();
         ReflectionTestUtils.setField(dto1.toEntity(), "id", 1L);
 
         dto2 = MemberSaveRequestDto.builder()
                 .name("PARK")
-                .city("Incheon").street("gugu street").zipcode("12-1")
+                .detail("Incheon").street("gugu street").zipcode("12-1")
                 .build();
         ReflectionTestUtils.setField(dto2.toEntity(), "id", 2L);
 
@@ -70,7 +70,7 @@ public class unitMemberServiceTest {
 
         // then
         assertThat(findMember.getName()).isEqualTo(dto1.getName());
-        assertThat(findMember.getAddress().getCity()).isEqualTo(dto1.getCity());
+        assertThat(findMember.getAddress().getDetail()).isEqualTo(dto1.getDetail());
         assertThat(findMember.getAddress().getStreet()).isEqualTo(dto1.getStreet());
         assertThat(findMember.getAddress().getZipcode()).isEqualTo(dto1.getZipcode());
 
@@ -84,7 +84,7 @@ public class unitMemberServiceTest {
         String street = "soso street";
         String zipcode = "65-1";
         MemberUpdateRequestDto Dto = MemberUpdateRequestDto.builder().name(name).
-                city(city).street(street).zipcode(zipcode).build();
+                detail(city).street(street).zipcode(zipcode).build();
 
         given(memberRepository.findById(2L)).willReturn(Optional.of(dto2.toEntity()));
 
@@ -94,7 +94,7 @@ public class unitMemberServiceTest {
         Optional<Member> optionalMember = memberRepository.findById(2L);
         final Member findMember = optionalMember.get();
         // then
-        assertThat(findMember.getAddress().getCity()).isEqualTo(city);
+        assertThat(findMember.getAddress().getDetail()).isEqualTo(city);
         assertThat(findMember.getAddress().getStreet()).isEqualTo(street);
         assertThat(findMember.getAddress().getZipcode()).isEqualTo(zipcode);
         assertThat(findMember.getName()).isEqualTo(name);

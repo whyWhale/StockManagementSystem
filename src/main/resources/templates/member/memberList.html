@@ -8,7 +8,7 @@
   <form action="/admin/members" method="get" id="searchForm">
     <div class="input-group">
       <input class="form-control" name="name" th:value="${MemberSearchCondition.name}" th:placeholder="회원명">
-      <input class="form-control" name="city" th:value="${MemberSearchCondition.city}" th:placeholder="도시명">
+      <input class="form-control" name="city" th:value="${MemberSearchCondition.getCity}" th:placeholder="도시명">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
         <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
@@ -45,7 +45,7 @@
          th:href="@{/admin/members(page= ${result.start -1}
                    ,size=${10},
                    name=${MemberSearchCondition.name},
-                   city=${MemberSearchCondition.city}
+                   city=${MemberSearchCondition.getCity}
                    )}"
          tabindex="-1">Previous</a>
     </li>
@@ -54,7 +54,7 @@
       <a class="page-link"
          th:href="@{/admin/members(page = ${page},size=${10},
                    name=${MemberSearchCondition.name},
-                   city=${MemberSearchCondition.city}
+                   city=${MemberSearchCondition.getCity}
                    )}">
         [[${page}]]
       </a>
@@ -64,7 +64,7 @@
       <a class="page-link" th:href="@{/admin/members(page= ${result.end + 1}
                 ,size=${10},
                    name=${MemberSearchCondition.name},
-                   city=${MemberSearchCondition.city}
+                   city=${MemberSearchCondition.getCity}
                 )}">
         Next
       </a>

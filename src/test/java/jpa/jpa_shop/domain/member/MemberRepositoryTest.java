@@ -34,7 +34,7 @@ public class MemberRepositoryTest {
     @Test
     public void initData() {
         IntStream.rangeClosed(0,20).forEach(i -> {
-            memberRepository.save(Member.builder().name(Integer.valueOf(i).toString()).address(Address.builder().city(Integer.valueOf(i/5).toString()).build()).build());
+            memberRepository.save(Member.builder().name(Integer.valueOf(i).toString()).address(Address.builder().detail(Integer.valueOf(i/5).toString()).build()).build());
         });
 
         log.info("init data = {}",memberRepository.findAll());
@@ -51,6 +51,6 @@ public class MemberRepositoryTest {
         log.info("contents data : {}",content); // 3,4
         // then
         Assertions.assertThat(content.size()).isEqualTo(2);
-        Assertions.assertThat(content.get(0).getAddress().getCity()).isEqualTo("0");
+        Assertions.assertThat(content.get(0).getAddress().getDetail()).isEqualTo("0");
     }
 }

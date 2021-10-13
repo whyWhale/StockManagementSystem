@@ -3,7 +3,6 @@ package jpa.jpa_shop.web.controller.API;
 import jpa.jpa_shop.service.IFS.MemberServiceIFS;
 import jpa.jpa_shop.web.dto.request.member.MemberSaveRequestDto;
 import jpa.jpa_shop.web.dto.request.member.MemberUpdateRequestDto;
-import jpa.jpa_shop.web.dto.response.ListResponse;
 import jpa.jpa_shop.web.dto.response.member.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -19,12 +17,6 @@ import java.util.List;
 @RestController
 public class MemberApiController {
     private final MemberServiceIFS memberService;
-
-    @GetMapping("")
-    public ListResponse<MemberResponseDto> read() {
-        List<MemberResponseDto> members = memberService.findAll();
-        return new ListResponse(members.size(), members);
-    }
 
     @GetMapping("/{id}")
     public MemberResponseDto findById(@PathVariable Long id) {

@@ -58,7 +58,7 @@ public class unitOrderServiceTest {
     public void Data() {
         member = Member.builder().
                 name("KIM").
-                address(Address.builder().city("Seoul").street("soso street").zipcode("59-1").build())
+                address(Address.builder().detail("Seoul").street("soso street").zipcode("59-1").build())
                 .build(); // id= 1L;
         ReflectionTestUtils.setField(member,"id",1L);
 
